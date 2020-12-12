@@ -1,35 +1,57 @@
+import * as actionType from './action';
+
 const initialState = {
-    counter: 0
+    counter: 0,
+    results: []
 }
 
 const reducer = (state = initialState, action) => {
-    console.log(action.type);
     switch (action.type) {
-        case 'INCREMENT':
-            const newState = Object.assign({}, state);
-            newState.counter = state.counter + 1;
+        case actionType.INCREMENT:
+            // const newState = Object.assign({}, state);
+            // newState.counter = state.counter + 1;
+            // return {
+            //     newState
+            // }
             return {
-                newState
+                ...state,
+                counter: state.counter + 1
             }
-        case 'DECREMENT':
+        case actionType.DECREMENT:
             return {
                 ...state,
                 counter: state.counter - 1
             }
-        case 'ADD':
+        case actionType.ADD:
             return {
                 ...state,
-                counter: state.counter + 10
+                counter: state.counter + action.val
             }
-        case 'SUBTRACT':
+        case actionType.SUBTRACT:
             return {
                 ...state,
-                counter: state.counter - 10
+                counter: state.counter - action.val
             }
-        case 'RESET':
+        case actionType.RESET:
             return {
                 ...state,
                 counter: 0
+            }
+        case actionType.STORE_RESULT:
+            return {
+                ...state,
+                results: state.results.concat({
+                    value: state.counter,
+                    id: new Date()
+                }) // immutable way of updating an array by adding an item.
+            }
+        case actionType.DEL_RESULT:
+            const newArray = state.results.filter((result) => {
+                return result.id !== action.delId
+            })
+            return {
+                ...state,
+                results: newArray
             }
         default:
             return state;

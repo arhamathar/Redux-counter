@@ -1,41 +1,18 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 
 import CounterControl from '../components/CounterControl/CounterControl';
 import CounterOutput from '../components/CounterOutput/CounterOutput';
 
 function Counter(props) {
-    const [count, setCount] = useState(0);
-
-    const counterChangedHandler = (action, value) => {
-        switch (action) {
-            case 'inc':
-                setCount(count + 1);
-                break;
-            case 'dec':
-                setCount(count - 1)
-                break;
-            case 'add':
-                setCount(count + value)
-                break;
-            case 'sub':
-                setCount(count - value)
-                break;
-            case 'reset':
-                setCount(0)
-                break;
-            default:
-                break;
-        }
-    }
     return (
         <div>
             <CounterOutput value={props.count} />
-            <CounterControl label="Decrement" clicked={() => props.decrement} />
-            <CounterControl label="Increment" clicked={() => props.increment} />
-            <CounterControl label="Reset" clicked={() => props.reset} />
-            <CounterControl label="Add 5" clicked={() => props.add} />
-            <CounterControl label="Subtract 5" clicked={() => props.subtract} />
+            <CounterControl label="Decrement" clicked={props.decrement} />
+            <CounterControl label="Increment" clicked={props.increment} />
+            <CounterControl label="Reset" clicked={props.reset} />
+            <CounterControl label="Add 10" clicked={props.add} />
+            <CounterControl label="Subtract 10" clicked={props.subtract} />
         </div>
     );
 }
@@ -48,7 +25,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        increment: () => dispatch({ type: 'INCREMENT' }),
+        increment: () => { dispatch({ type: 'INCREMENT' }) },
         decrement: () => dispatch({ type: 'DECREMENT' }),
         reset: () => dispatch({ type: 'RESET' }),
         add: () => dispatch({ type: 'ADD' }),

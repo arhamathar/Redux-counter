@@ -13,7 +13,7 @@ function Counter(props) {
             <CounterControl label="Reset" clicked={props.reset} />
             <CounterControl label="Add 10" clicked={props.add} />
             <CounterControl label="Subtract 10" clicked={props.subtract} /><hr />
-            <button onClick={props.storeResult}>Result</button>
+            <button onClick={() => props.storeResult(props.count)}>Result</button>
             <ul>
                 {(props.results).map(res => {
                     return (
@@ -29,8 +29,8 @@ function Counter(props) {
 
 const mapStateToProps = (state) => {
     return {
-        count: state.counter,
-        results: state.results
+        count: state.ctr.counter,
+        results: state.res.results
     };
 }
 
@@ -41,7 +41,7 @@ const mapDispatchToProps = (dispatch) => {
         reset: () => dispatch({ type: actionType.RESET }),
         add: () => dispatch({ type: actionType.ADD, val: 10 }),
         subtract: () => dispatch({ type: actionType.SUBTRACT, val: 10 }),
-        storeResult: () => dispatch({ type: actionType.STORE_RESULT }),
+        storeResult: (result) => dispatch({ type: actionType.STORE_RESULT, result: result }),
         delResult: (id) => dispatch({ type: actionType.DEL_RESULT, delId: id })
     };
 }

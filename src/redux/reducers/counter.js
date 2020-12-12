@@ -1,8 +1,7 @@
-import * as actionType from './action';
+import * as actionType from '../action';
 
 const initialState = {
-    counter: 0,
-    results: []
+    counter: 0
 }
 
 const reducer = (state = initialState, action) => {
@@ -36,22 +35,6 @@ const reducer = (state = initialState, action) => {
             return {
                 ...state,
                 counter: 0
-            }
-        case actionType.STORE_RESULT:
-            return {
-                ...state,
-                results: state.results.concat({
-                    value: state.counter,
-                    id: new Date()
-                }) // immutable way of updating an array by adding an item.
-            }
-        case actionType.DEL_RESULT:
-            const newArray = state.results.filter((result) => {
-                return result.id !== action.delId
-            })
-            return {
-                ...state,
-                results: newArray
             }
         default:
             return state;
